@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Board">
+	
+	<!-- 게시글 작성 -->
+	<insert id="PWrite" parameterType="board">
+		INSERT INTO BOARD VALUES(BT_SEQ.NEXTVAL, #{pId}, #{pTitle}, #{pContent}, SYSDATE, #{pFileName})
+	</insert>
+	
+	<!-- 게시글 보여주기 -->
+	<select id="PList" resultType="board">
+		SELECT * FROM BOARD ORDER BY PNUM DESC
+	</select>
+	
+	<!-- 게시글 상세보기 -->
+	<select id="pView" parameterType="int" resultType="board">
+		SELECT * FROM BOARD WHERE PNUM = #{pNum}
+	</select>
+	
+	<!-- 게시글 수정 -->
+	<update id="PModify" parameterType="board">
+		UPDATE BOARD SET PID = #{pId}, PTITLE = #{pTitle}, PCONTENT = #{pContent}, PFILENAME = #{pFileName, jdbcType=VARCHAR} WHERE PNUM = #{pNum}
+	</update>
+	
+</mapper> 
